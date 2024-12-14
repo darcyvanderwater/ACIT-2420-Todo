@@ -9,7 +9,8 @@ new_item=""
 #variable to hold the value of the search term
 search=""
 
-#retrieve conmmand line arguments. The ones expecting arguments are followed by ':'.
+#retrieve conmmand line arguments. The ones expecting arguments are followed by ':'. https://sookocheff.com/post/bash/parsing-bash-script-arguments-with-shopts/
+
 while getopts "hn:is:c:" op; do
   #using case to match the option entered and call a corresponding function.
   case "${option}" in
@@ -27,7 +28,7 @@ while getopts "hn:is:c:" op; do
       ;;
     n)   
       add_item() {
-        #saving the command line argument to a variable to write to the to-do list.
+        #save the command line argument to a variable to write to the to-do list. https://gitlab.com/cit2420/2420-notes-f24/-/blob/main/2420-notes/week-seven.md?ref_type=heads
         new_item=${OPTARG}
       }
       ;;
@@ -39,19 +40,19 @@ while getopts "hn:is:c:" op; do
       ;;
     s)
       search_for_item() {
-        #saving the command line argument to a variable to use as a search term.
-        search=${todo_list}
+        #save the command line argument to a variable to use as a search term.
+        search=${OPTARG}
         #grep, looking for the argument provided (stored in 'search')
-        grep $search $todo_list
+        grep "$search" "$todo_list"
+      }
       ;;
     c)
       mark_complete() {
-        #saving the command line argument to a variable to match with the id number.
+        #save the command line argument to a variable to match with the id number.
         idnum=${OPTARG}
-
-      function display_items
+      }
   esac
-  #check if no option was provided. Call
+  #check if no option was provided. Run display_all, printing entire file
   if [[ $1 == ""]]; then
       display_all () {
         cat $todo_list 
