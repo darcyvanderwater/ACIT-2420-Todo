@@ -1,3 +1,28 @@
 #!/bin/bash
 
 
+#retrieve getops
+while getopts "hnisc" op; do
+  case "${opt}" in
+
+    h)
+      display_help(
+      ;;
+    n)   
+      add_item(
+      ;;
+    i)
+      display_incomplete(
+      ;;
+    s)
+      search_for_item(
+      ;;
+
+
+
+function display_items
+function mark_complete
+  esac
+done
+
+exit 0
