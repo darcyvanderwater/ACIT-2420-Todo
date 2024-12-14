@@ -1,27 +1,54 @@
 #!/bin/bash
 
+#path of the to-do list file
+todo_list="$HOME/.local/share/tdos/todos"
 
-#retrieve getops
-while getopts "hnisc" op; do
-  case "${opt}" in
+#variable to hold the value of the item to add when -n is used
+new_item=""
+
+#variable to hold the value of the search term
+search=""
+
+#retrieve conmmand line arguments. The ones expecting arguments are followed by ':'.
+while getopts "hn:is:c:" op; do
+  #using case to match the option entered and call a corresponding function.
+  case "${option}" in
 
     h)
-      display_help(
+      display_help() {
+        echo "Welcome to the to-do list script. Here is how to use it:"
+        echo "run the script with one of the following options:"
+        echo "-h                show this message"
+        echo "-n [itemname]     adds a new item to the list. subtitute [itemname] with your item."
+        echo "-i                show all the tasks that are not completed"
+        echo "-s [itemname]     search for a task. replace [itemname] with the task name."
+        echo "-c [taskid]       mark a task completed. replace [taskid] with the id number."
+      }
       ;;
     n)   
-      add_item(
+      add_item() {
+        #saving the command line argument to a variable to write to the to-do list.
+        new_item=${OPTARG}
+      }
       ;;
     i)
-      display_incomplete(
+      display_incomplete() {
+        # search for text    https://help.ubuntu.com/community/grep
+        grep "[[]]" "$todo_list"
+      }
       ;;
     s)
-      search_for_item(
+      search_for_item() {
+        #saving the command line argument to a variable to use as a search term.
+        search=${OPTARG}
+        grep "${OPTARG}" "$todo_list"
       ;;
+    c)
+      mark_complet() {
+        #saving the command line argument to a variable to match with the id number.
+        idnum=${OPTARG}
 
-
-
-function display_items
-function mark_complete
+      function display_items
   esac
 done
 
