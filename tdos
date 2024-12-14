@@ -40,16 +40,22 @@ while getopts "hn:is:c:" op; do
     s)
       search_for_item() {
         #saving the command line argument to a variable to use as a search term.
-        search=${OPTARG}
-        grep "${OPTARG}" "$todo_list"
+        search=${todo_list}
+        #grep, looking for the argument provided (stored in 'search')
+        grep $search $todo_list
       ;;
     c)
-      mark_complet() {
+      mark_complete() {
         #saving the command line argument to a variable to match with the id number.
         idnum=${OPTARG}
 
       function display_items
   esac
+  #check if no option was provided. Call
+  if [[ $1 == ""]]; then
+      display_all () {
+        cat $todo_list 
+      }
 done
 
 exit 0
