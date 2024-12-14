@@ -30,6 +30,7 @@ while getopts "hn:is:c:" op; do
       add_item() {
         #save the command line argument to a variable to write to the to-do list. https://gitlab.com/cit2420/2420-notes-f24/-/blob/main/2420-notes/week-seven.md?ref_type=heads
         new_item=${OPTARG}
+        line_count=wc -l $HOME/.local/share/tdos/todos | cut -d " " -f 1
       }
       ;;
     i)
@@ -53,10 +54,11 @@ while getopts "hn:is:c:" op; do
       }
   esac
   #check if no option was provided. Run display_all, printing entire file
-  if [[ $1 == ""]]; then
-      display_all () {
-        cat $todo_list 
-      }
+  
+  if [[ $1 == "" ]]; then
+      cat "$todo_list" 
+  fi
+
 done
 
 exit 0
